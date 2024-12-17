@@ -23,8 +23,9 @@ public class Producer {
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
-//        sendSingleMessage(producer);
-        sendManyMessages(producer);
+        sendSingleMessage(producer);
+//        sendManyMessages(producer);
+        producer.close();
     }
 
     private static void sendSingleMessage(KafkaProducer<String, String> producer) {
@@ -32,12 +33,11 @@ public class Producer {
 
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>("baza_java", "Arsen", "Spasibo");
         producer.send(producerRecord);
-        producer.close();
     }
 
     private static void sendManyMessages(KafkaProducer<String, String> producer) {
         List<Pair<String, String>> characters = new ArrayList<>();
-        characters.add(Pair.with("Arsen", "Spasibo_many"));
+        characters.add(Pair.with("Arsen", "Spasibo_many0"));
         characters.add(Pair.with("Arsen", "Spasibo_many1"));
         characters.add(Pair.with("Arsen", "Spasibo_many2"));
         characters.add(Pair.with("Arsen", "Spasibo_many3"));
@@ -60,6 +60,5 @@ public class Producer {
             });
 
         }
-        producer.close();
     }
 }

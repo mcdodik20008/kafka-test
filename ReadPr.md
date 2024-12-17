@@ -103,9 +103,10 @@ public class Producer {
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
-
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
-//        sendSingleMessage(producer);
+        sendSingleMessage(producer);
+//        sendManyMessages(producer);
+        producer.close();
     }
 
     private static void sendSingleMessage(KafkaProducer<String, String> producer) {
@@ -113,7 +114,7 @@ public class Producer {
 
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>("baza_java", "Arsen", "Spasibo");
         producer.send(producerRecord);
-        producer.close();
+   
     }
 }
 ```
